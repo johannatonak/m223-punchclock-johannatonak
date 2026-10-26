@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -47,6 +48,15 @@ public class EntryController {
     @Operation(summary = "Deletes an entry.", description = "Deletes the entry with the given id.")
     public void delete(@PathParam("id") Long id) {
         entryService.deleteEntry(id);
+    }
+
+    @PUT
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Updates an entry.", description = "Updates the entry with the given id and returns it.")
+    public Entry update(@PathParam("id") Long id, Entry entry) {
+        return entryService.updateEntry(id, entry);
     }
 
 }
